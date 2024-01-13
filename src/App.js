@@ -12,6 +12,18 @@ import {
 
 const mapStateToProps = state => state.data
 
+let debounce = (func, wait) => {
+  let timeout;
+  return (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args)
+    }
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  }
+}
+
 function App({artId}) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data);
